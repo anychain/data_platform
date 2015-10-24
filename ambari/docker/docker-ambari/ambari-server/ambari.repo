@@ -1,0 +1,9 @@
+#VERSION_NUMBER=2.1.2-377
+
+[Updates-ambari-2.1.2]
+name=ambari-2.1.2 - Updates
+baseurl=http://repo.esse.io:33080/repos/AMBARI-2.1.2/centos7/
+gpgcheck=1
+gpgkey=http://repo.esse.io:33080/repos/AMBARI-2.1.2/centos7/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
+enabled=1
+priority=1
