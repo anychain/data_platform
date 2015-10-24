@@ -156,12 +156,8 @@ gpgkey=file:/etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
   - Run *reposync HDP-2.3* to synchronize the repository contents to your mirror server for example.
   - Run *creatrepo <repo location>* to generate the repository metadata.
   - Create new mysql-community-release rpm if you want install new instance of MySQL for Hive or Oozie.
-```
-Update the repo/el7/etc/yum.repos.d/mysql-community.repo to specify your internal http server host before create rpm package.
+*Update the repo/el7/etc/yum.repos.d/mysql-community.repo to specify your internal http server host before create rpm package.
 
-You can find the command line to create rpm package in the [repo/README.md](../repo/README.md)
-```
+You can find the command line to create rpm package in the [repo/README.md](../repo/README.md)*
 
-```
-Replace the existing mysql-community-release rpm under the HDP-UTILS-1.1.0.20/repos/centos7/mysql/ with the rpm package you created.
-```
+*Replace the existing mysql-community-release rpm under the HDP-UTILS-1.1.0.20/repos/centos7/mysql/ with the rpm package you created.*
