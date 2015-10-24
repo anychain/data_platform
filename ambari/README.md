@@ -65,10 +65,10 @@ $ docker run -d --restart=always \
 $ docker run -d --rm=true \
 --entrypoint=bash \
 -e PGPASSWORD=<db password> ambari:0.0.1 
-psql -d ambari -h <db host> \
--U <db user> \
+psql -d ambari -h <psq server> \
+-U <psq dbuser> \
 -f /var/lib/ambari-server/resources/Ambari-DDL-Postgres-DROP.sql \
--v username=<db user>
+-v username=<psq dbuser>
 ```
 
 * Set up ambari server
@@ -80,7 +80,18 @@ $ docker build -t ambari:0.0.1 --force-rm=true ./
 
   - Start ambari server
 ```
-$ docker run -d --restart=always -p 8080:8080 -p 8440:8440 -p 8441:8441 --name ambari-server -h ambari-server.esse.io -e POSTGRES_SERVER=<psq server> -e POSTGRES_PORT=5432 -e POSTGRES_DB=ambari -e POSTGRES_USER=<psq dbuser> -e POSTGRES_PWS=<psq password> --add-host='edp04.esse.io:192.168.250.15' --add-host='edp05.esse.io:192.168.250.16' ambari:0.0.1
+$ docker run -d --restart=always \
+-p 8080:8080 -p 8440:8440 -p 8441:8441 \
+--name ambari-server \
+-h ambari-server.esse.io \
+-e POSTGRES_SERVER=<psq server> \
+-e POSTGRES_PORT=5432 \
+-e POSTGRES_DB=ambari \
+-e POSTGRES_USER=<psq dbuser> \
+-e POSTGRES_PWS=<psq password> \
+--add-host='edp04.esse.io:192.168.250.15' \
+--add-host='edp05.esse.io:192.168.250.16' \
+ambari:0.0.1
 ```
 *Note: If you have DNS in your deployment environment, you need not specify the --add-host when run the docker container, otherwise you need provide all  the pair of FQDN and IP of your Hadoop cluster nodes when run the docker container via --add-host.*
 
