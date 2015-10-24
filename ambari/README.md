@@ -51,13 +51,24 @@ First you need setup the docker env before run the following.
 * Start Postgresql container
 Create two databases for ambari server, hive and oozie. By default, Ambari will install an instance of MySQL for the Hive Metastore and Derby for Oozie Server, but for production environment, we strongly recommended to use existing Postgresql Database with High Availability and Replication enabled.
 ```
-$ docker run -d --restart=always -v /data/postgresql:/var/lib/postgresql -p 5432:5432 -e DB_NAME=hive_meta,oozie,ambari -e DB_USER=dbuser -e DB_PASS=<db password> --name postgresql sameersbn/postgresql:9.4-2
+$ docker run -d --restart=always \
+-v /data/postgresql:/var/lib/postgresql \
+-p 5432:5432 \
+-e DB_NAME=hive_meta,oozie,ambari \
+-e DB_USER=dbuser \
+-e DB_PASS=<db password> \
+--name postgresql sameersbn/postgresql:9.4-2
 ```
 
 *Note: you can run the following command to clean the database when try to reset the Ambari server.*
 ```
-$ docker run -d --rm=true --entrypoint=bash -e PGPASSWORD=<db password> ambari:0.0.1 
-psql -d ambari -h <db host> -U <db user> -f /var/lib/ambari-server/resources/Ambari-DDL-Postgres-DROP.sql -v username=<db user>
+$ docker run -d --rm=true \
+--entrypoint=bash \
+-e PGPASSWORD=<db password> ambari:0.0.1 
+psql -d ambari -h <db host> \
+-U <db user> \
+-f /var/lib/ambari-server/resources/Ambari-DDL-Postgres-DROP.sql \
+-v username=<db user>
 ```
 
 * Set up ambari server
@@ -79,7 +90,10 @@ The clocks of all the nodes in your cluster must be able to synchronize with eac
 * Install JDK on cluster
 Install the JDK8 on all the nodes in your cluster.
 ```
-$ mkdir -p /usr/jdk64 && cd /usr/jdk64 && wget http://repo.esse.io:33080/ARTIFACTS/jdk-8u40-linux-x64.tar.gz && tar -xf jdk-8u40-linux-x64.tar.gz && rm -f jdk-8u40-linux-x64.tar.gz
+$ mkdir -p /usr/jdk64 && cd /usr/jdk64 && \
+wget http://repo.esse.io:33080/ARTIFACTS/jdk-8u40-linux-x64.tar.gz && \
+tar -xf jdk-8u40-linux-x64.tar.gz && \
+rm -f jdk-8u40-linux-x64.tar.gz
 ```
 
 * Check DNS and NSCD
