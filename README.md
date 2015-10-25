@@ -1,6 +1,15 @@
-# esse data platform
+# EssE data platform
 
-esse Data Platform helps companies across a range of industries reduce costs and improve their outcomes.
+EssE Data Platform(EDP) is an integrated data platform that can help:
+
+1. Quickly setup an end to end environment to analysis data  
+2. 
+
+With the help of the EDP, you will be benefit from:
+
+1. Reduce the cost 
+2. Increase the outcomes 
+
 
 ## Repository
 
