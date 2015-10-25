@@ -1,9 +1,12 @@
 # EssE data platform
 
-EssE Data Platform(EDP) is an integrated data platform that can help:
+EssE Data Platform(EDP) is an integrated data platform that :
 
-1. Quickly setup an end to end environment to analysis data  
-2. 
+1. Built on top of OpenSource projects  
+2. Easy to use and manage 
+3. Be able to integrated with your own application and data
+4. Can be deployed on premise or on the public cloud
+
 
 With the help of the EDP, you will be benefit from:
 
@@ -17,7 +20,7 @@ We use the HDP as our default repository, and we will support more popular Hadoo
 
 ## Deploy
 
-Adop Apache ambari and plus our enhancement to help customer deploy bigdata platform quickly and smoothly.
+Adopt Apache ambari and plus our enhancement to help customer deploy bigdata platform quickly and smoothly.
 
 Additional deployment stack we have:
 
