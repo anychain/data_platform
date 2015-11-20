@@ -2,8 +2,8 @@
 
 [Updates-ambari-2.1.2]
 name=ambari-2.1.2 - Updates
-baseurl=http://repo.esse.io:33080/repos/AMBARI-2.1.2/centos7/
+baseurl=EDP_REPOS/repos/AMBARI-2.1.2/centos6/
 gpgcheck=1
-gpgkey=http://repo.esse.io:33080/repos/AMBARI-2.1.2/centos7/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
+gpgkey=EDP_REPOS/repos/AMBARI-2.1.2/centos6/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
 enabled=1
 priority=1

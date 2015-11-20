@@ -36,7 +36,9 @@ wait_for_db() {
 }
 
 config-ambari-server() {
-  if [ -z "$POSTGRES_SERVER" ]
+  sed "s#EDP_REPOS#$EDP_REPOS#g" /tmp/ambari.repo > /etc/yum.repos.d/ambari.repo
+  sed "s#EDP_REPOS#$EDP_REPOS#g" /tmp/edp1.1-repoinfo.xml > /var/lib/ambari-server/resources/stacks/HDP/2.3/repos/repoinfo.xml
+   if [ -z "$POSTGRES_SERVER" ]
   then
     echo Remote db not configured using postgres by localhost
     ambari-server setup -s \

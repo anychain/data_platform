@@ -1,10 +1,12 @@
 # Creates an Ambari Server base on centos
-FROM centos:7
+FROM centos:6.7
 MAINTAINER gengjh<david@esse.io>
 
-ENV ARTIFACTS_REPO http://repo.esse.io:33080/ARTIFACTS
+ENV EDP_REPOS http://repo.esse.io:33080
+ENV ARTIFACTS_REPO $EDP_REPOS/ARTIFACTS
 
-ADD ambari.repo /etc/yum.repos.d/
+ADD ambari.repo /tmp/
+RUN sed "s#EDP_REPOS#$EDP_REPOS#g" /tmp/ambari.repo > /etc/yum.repos.d/ambari.repo
 
 # increase timeouts to avoid "No more mirrors to try" if yum repos are busy for a few minutes
 RUN echo "retries=0" >> /etc/yum.conf
@@ -13,9 +15,9 @@ RUN echo "timeout=60" >> /etc/yum.conf
 RUN yum install -y tar git curl bind-utils unzip net-tools
 
 # install Ambari specified 1.8 jdk
-ADD $ARTIFACTS_REPO/jdk-8u40-linux-x64.tar.gz /usr/jdk64/
-RUN cd /usr/jdk64 && tar -xf jdk-8u40-linux-x64.tar.gz && rm -f jdk-8u40-linux-x64.tar.gz
-ENV JAVA_HOME /usr/jdk64/jdk1.8.0_40
+ADD $EDP_REPOS/repos/java/jdk-8u40-linux-x64.rpm /tmp/
+RUN yum localinstall -y /tmp/jdk-8u40-linux-x64.rpm
+ENV JAVA_HOME /usr/java/jdk1.8.0_40
 ENV PATH $PATH:$JAVA_HOME/bin
 
 # jce
@@ -38,7 +40,7 @@ RUN sh /tmp/install-ssh.sh
 RUN yum install -y krb5-workstation
 
 # add ambari shell to the image so new users don't need the 1GB java image
-RUN curl -o /tmp/ambari-shell.jar http://repo.esse.io:33080/ARTIFACTS/ambari-shell-0.1.31.jar
+RUN curl -o /tmp/ambari-shell.jar $ARTIFACTS_REPO/ambari-shell-0.1.31.jar
 ADD install-cluster.sh /tmp/
 ADD wait-for-host-number.sh /tmp/
 ADD ambari-shell.sh /tmp/
@@ -82,6 +84,11 @@ ENV M2_HOME /usr/local/maven
 ENV PATH $PATH:$M2_HOME/bin
 RUN cd /var/lib/ambari-server/resources/stacks/HDP/2.3/services && git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git
 
+# install HAWQ plugin
+RUN wget $ARTIFACTS_REPO/hawq-plugin-hdp-1.3.0-190.tar.gz && \
+  tar xzf hawq-plugin-hdp-1.3.0-190.tar.gz -C /tmp/ && \
+  yum localinstall -y /tmp/hawq-plugin-hdp-1.3.0/hawq-plugin-1.3.0-190.noarch.rpm
+
 # fix Ambari views with WASB
 # remove after Ambari 2.1.3
 # ADD ambari-views-utils-fixed-wasb.jar /tmp/wasb/WEB-INF/lib/
@@ -98,7 +105,7 @@ ADD logo.png /usr/lib/ambari-server/web/img/
 ADD logo.png /usr/lib/ambari-server/web/img/logo-white.png
 ADD index.html /usr/lib/ambari-server/web/
 ADD app.js.gz /usr/lib/ambari-server/web/javascripts/
-ADD edp1.1-repoinfo.xml /var/lib/ambari-server/resources/stacks/HDP/2.3/repos/repoinfo.xml
+ADD edp1.1-repoinfo.xml /tmp/
 ADD $ARTIFACTS_REPO/ambari-admin-2.1.2.377.jar /var/lib/ambari-server/resources/views/
 ENV PS1 "[\u@docker-ambari \W]# "
 
