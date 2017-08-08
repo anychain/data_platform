@@ -1,6 +1,6 @@
-# EssE data platform
+# data platform
 
-EssE Data Platform(EDP) is an integrated data platform that :
+Data Platform(ADP) is an integrated data platform that :
 
 1. Built on top of OpenSource projects  
 2. Easy to use and manage 
@@ -8,7 +8,7 @@ EssE Data Platform(EDP) is an integrated data platform that :
 4. Can be deployed on premise or on the public cloud
 
 
-With the help of the EDP, you will be benefit from:
+With the help of the ADP, you will be benefit from:
 
 1. Reduce the cost 
 2. Increase the outcomes 
@@ -34,5 +34,5 @@ Additional deployment stack we have:
 
 ## Data workflow
 
-We provide EDW to help customer orchestrate their data on data platform and share the dashboard to their colleagues.
+We provide ADW to help customer orchestrate their data on data platform and share the dashboard to their colleagues.
 
